@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <span class="city"><input type="text" name="city" id="city" placeholder="City"> </span>
+        <div class="layer">
+            <div class="icon">
+                <img src="./image2.jpg" alt="X" height="100px" width="100px">
+            </div>
+        </div>
+        <span class="sp">
+            <div class="temp">
+                Temperature:
+                 <span class=st></span>
+            </div>
+            <div class="min-temp">
+                Min-Temp : 
+                <span class=stmin></span>
+            </div>
+            <div class="max-temp">
+                Max-Temp :
+                 <span class=stmax></span>
+            </div>
+        </span>
+    </div>
+</body>
+<script>
+    let API = "c3344b4cac7d84257322b01cc48bba21";
+    let input=document.querySelector('input[type="text"]')
+    let city_name=input.value
+    let tempMain = document.querySelector('.st')
+    let tempMainMin = document.querySelector('.stmin')
+    let tempMainMax = document.querySelector('.stmax')
+
+    input.addEventListener('keypress',fun)
+    
+    function fun(e){
+
+
+        let url =`https://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=${API}&units=metric`
+        // console.log(input.value)
+        // console.log(e.keyCode)
+        if(e.keyCode == 13){
+          fetch(url)
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(data){
+                // console.log(data.main.temp); 
+                tempMain.textContent= data.main.temp;
+                tempMainMin.textContent=data.main.temp_min;
+                tempMainMax.textContent=data.main.temp_max;
+                input.value=" "
+            })
+        }
+    }
+    
+</script>
+</html>
